@@ -1,4 +1,4 @@
-import { Role, User } from './data'
+import type { Role, User } from './data'
 
 declare global {
   namespace Express {

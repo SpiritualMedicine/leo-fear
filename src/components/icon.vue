@@ -1,7 +1,3 @@
-<template>
-  <n-icon v-bind="props"><icon /></n-icon>
-</template>
-
 <script lang="ts" setup>
 import {
   AddOutline as add,
@@ -20,21 +16,27 @@ import {
   SettingsOutline as settings,
   ColorPaletteOutline as themes,
   BuildOutline as tools,
-  PeopleOutline as users
+  PeopleOutline as users,
 } from '@vicons/ionicons5'
 import { NIcon } from 'naive-ui'
-
-const icons = { refresh, dashboard, posts, pages, media, users, comments, themes, plugins, tools, settings, flask, add, help, notifications, github, fallback }
-
-type IconTypes = keyof typeof icons
 
 const props = defineProps({
   ...NIcon.props,
   type: {
     type: String,
-    default: 'fallback'
-  }
+    default: 'fallback',
+  },
 })
+
+const icons = { refresh, dashboard, posts, pages, media, users, comments, themes, plugins, tools, settings, flask, add, help, notifications, github, fallback }
+
+type IconTypes = keyof typeof icons
 
 const icon = icons[props.type as IconTypes]
 </script>
+
+<template>
+  <NIcon v-bind="props">
+    <icon />
+  </NIcon>
+</template>

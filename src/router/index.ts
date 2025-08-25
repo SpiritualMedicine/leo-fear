@@ -8,7 +8,7 @@ const history = createWebHistory()
 const router = createRouter({ history, routes })
 
 // Authorize (Make sure that is the first hook.)
-router.beforeEach(to => {
+router.beforeEach((to) => {
   const { expires = 0 } = storage.get<{ expires: number }>('token') ?? {}
   // already authorized
   if (to.name === 'login' && expires > Date.now()) {
@@ -20,7 +20,7 @@ router.beforeEach(to => {
   }
 })
 
-router.afterEach(to => {
+router.afterEach((to) => {
   // TODO: title from sfc custom block?
   // const current = to.matched[to.matched.length - 1].components.default
   // const title = current.title ?? current.name

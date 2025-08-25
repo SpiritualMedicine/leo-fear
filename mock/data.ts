@@ -4,7 +4,7 @@ export enum Role {
   user,
   staff,
   admin,
-  owner
+  owner,
 }
 
 export interface User {
@@ -23,7 +23,7 @@ export const users: User[] = [
     password: 'zce',
     role: Role.owner,
     name: '汪磊',
-    avatar: 'https://s.zce.me/avatar/zce.jpg'
+    avatar: 'https://s.zce.me/avatar/zce.jpg',
   },
   {
     id: uuid(),
@@ -31,7 +31,7 @@ export const users: User[] = [
     password: '123',
     role: Role.admin,
     name: 'Jack Ma',
-    avatar: 'https://s.zce.me/avatar/faker.svg'
+    avatar: 'https://s.zce.me/avatar/faker.svg',
   },
   {
     id: uuid(),
@@ -39,7 +39,7 @@ export const users: User[] = [
     password: '123',
     role: Role.staff,
     name: 'Pony Ma',
-    avatar: 'https://s.zce.me/avatar/faker.svg'
+    avatar: 'https://s.zce.me/avatar/faker.svg',
   },
   {
     id: uuid(),
@@ -47,8 +47,8 @@ export const users: User[] = [
     password: '123',
     role: Role.user,
     name: 'Tom Ma',
-    avatar: 'https://s.zce.me/avatar/faker.svg'
-  }
+    avatar: 'https://s.zce.me/avatar/faker.svg',
+  },
 ]
 
 export interface Token {

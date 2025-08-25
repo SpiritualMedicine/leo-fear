@@ -1,55 +1,3 @@
-<template>
-  <n-layout-header bordered>
-    <n-button text @click="router.go(0)">
-      <icon type="refresh" size="20" :depth="2" />
-    </n-button>
-    <n-breadcrumb>
-      <n-breadcrumb-item>Dashboard</n-breadcrumb-item>
-      <n-breadcrumb-item>Home</n-breadcrumb-item>
-    </n-breadcrumb>
-    <n-space :size="20" align="center" style="line-height: 1">
-      <n-tooltip>
-        <template #trigger>
-          <router-link :to="{ name: 'about' }">
-            <icon type="help" size="22" :depth="2" />
-          </router-link>
-        </template>
-        Dashboard help
-      </n-tooltip>
-      <n-tooltip>
-        <template #trigger>
-          <n-a href="https://github.com/zce/fearless" target="_blank">
-            <icon type="github" size="22" :depth="2" />
-          </n-a>
-        </template>
-        View on GitHub
-      </n-tooltip>
-      <n-popover trigger="click" placement="bottom-end" :width="300">
-        <template #trigger>
-          <n-badge dot processing>
-            <icon type="notifications" size="22" :depth="2" />
-          </n-badge>
-        </template>
-        <n-tabs type="line" justify-content="space-evenly" style="--pane-padding: 0">
-          <n-tab-pane name="notifications" tab="Notifications (5)">
-            <n-list style="margin: 0">
-              <n-list-item v-for="i in 5" :key="i"> Notification {{ i }} </n-list-item>
-            </n-list>
-          </n-tab-pane>
-          <n-tab-pane name="messages" tab="Messages (6)">
-            <n-list style="margin: 0">
-              <n-list-item v-for="i in 6" :key="i"> Message {{ i }} </n-list-item>
-            </n-list>
-          </n-tab-pane>
-        </n-tabs>
-      </n-popover>
-      <n-dropdown placement="bottom-end" show-arrow :options="options" @select="handleOptionsSelect">
-        <n-avatar size="small" round :src="me?.avatar" />
-      </n-dropdown>
-    </n-space>
-  </n-layout-header>
-</template>
-
 <script lang="ts" setup>
 import { useMessage } from 'naive-ui'
 import { computed, h } from 'vue'
@@ -69,10 +17,10 @@ const options = computed(() => [
   { key: 'profile', label: () => h(RouterLink, { to: '/profile' }, 'Your Profiles') },
   { key: 'settings', label: () => h(RouterLink, { to: '/profile/settings' }, 'Settings') },
   { key: 'divider', type: 'divider' },
-  { key: 'logout', label: 'Sign out' }
+  { key: 'logout', label: 'Sign out' },
 ])
 
-const handleOptionsSelect = async (key: unknown): Promise<void> => {
+async function handleOptionsSelect(key: unknown): Promise<void> {
   if ((key as string) === 'logout') {
     await token.revoke()
     await router.push({ name: 'login' })
@@ -81,6 +29,62 @@ const handleOptionsSelect = async (key: unknown): Promise<void> => {
   }
 }
 </script>
+
+<template>
+  <n-layout-header bordered>
+    <n-button text @click="router.go(0)">
+      <Icon type="refresh" size="20" :depth="2" />
+    </n-button>
+    <n-breadcrumb>
+      <n-breadcrumb-item>Dashboard</n-breadcrumb-item>
+      <n-breadcrumb-item>Home</n-breadcrumb-item>
+    </n-breadcrumb>
+    <n-space :size="20" align="center" style="line-height: 1">
+      <n-tooltip>
+        <template #trigger>
+          <RouterLink :to="{ name: 'about' }">
+            <Icon type="help" size="22" :depth="2" />
+          </RouterLink>
+        </template>
+        Dashboard help
+      </n-tooltip>
+      <n-tooltip>
+        <template #trigger>
+          <n-a href="https://github.com/zce/fearless" target="_blank">
+            <Icon type="github" size="22" :depth="2" />
+          </n-a>
+        </template>
+        View on GitHub
+      </n-tooltip>
+      <n-popover trigger="click" placement="bottom-end" :width="300">
+        <template #trigger>
+          <n-badge dot processing>
+            <Icon type="notifications" size="22" :depth="2" />
+          </n-badge>
+        </template>
+        <n-tabs type="line" justify-content="space-evenly" style="--pane-padding: 0">
+          <n-tab-pane name="notifications" tab="Notifications (5)">
+            <n-list style="margin: 0">
+              <n-list-item v-for="i in 5" :key="i">
+                Notification {{ i }}
+              </n-list-item>
+            </n-list>
+          </n-tab-pane>
+          <n-tab-pane name="messages" tab="Messages (6)">
+            <n-list style="margin: 0">
+              <n-list-item v-for="i in 6" :key="i">
+                Message {{ i }}
+              </n-list-item>
+            </n-list>
+          </n-tab-pane>
+        </n-tabs>
+      </n-popover>
+      <n-dropdown placement="bottom-end" show-arrow :options="options" @select="handleOptionsSelect">
+        <n-avatar size="small" round :src="me?.avatar" />
+      </n-dropdown>
+    </n-space>
+  </n-layout-header>
+</template>
 
 <style scoped>
 .n-layout-header {

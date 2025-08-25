@@ -2,15 +2,16 @@
  * Mock Server App
  */
 
-import express from 'express'
+import type { Express } from 'express'
 
+import type { Role } from './data'
+import express from 'express'
 import authRouter from './auth'
-import { Role, tokens, users } from './data'
+import { tokens, users } from './data'
 import labsRouter from './labs'
 import menusRouter from './menus'
-import usersRouter from './users'
 
-import type { Express } from 'express'
+import usersRouter from './users'
 
 const app: Express = express()
 
@@ -26,7 +27,8 @@ app.request.can = function (role: Role) {
 
 // authenticate
 app.use((req, res, next) => {
-  if (req.path.startsWith('/auth')) return next()
+  if (req.path.startsWith('/auth'))
+    return next()
   const [, accessToken] = req.headers.authorization?.split(' ') ?? []
   if (accessToken == null) {
     return res.status(401).send({ message: 'Requires authentication' })

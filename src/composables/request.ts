@@ -1,6 +1,6 @@
-import { ref } from 'vue'
-
 import type { Ref, UnwrapRef } from 'vue'
+
+import { ref } from 'vue'
 
 export interface Result<T> {
   data: Ref<UnwrapRef<T | null>>
@@ -8,21 +8,21 @@ export interface Result<T> {
   loading: Ref<boolean>
 }
 
-export const useRequest = <T>(promise: Promise<T>, initialData: T | null = null): Result<T> => {
+export function useRequest<T>(promise: Promise<T>, initialData: T | null = null): Result<T> {
   const data = ref<T | null>(initialData)
   const error = ref<Error | null>(null)
   const loading = ref<boolean>(true)
 
   // TODO: maybe request after mounting?
   promise.then(
-    val => {
+    (val) => {
       data.value = val as UnwrapRef<T>
       loading.value = false
     },
-    err => {
+    (err) => {
       error.value = err
       loading.value = false
-    }
+    },
   )
 
   return { data, error, loading }

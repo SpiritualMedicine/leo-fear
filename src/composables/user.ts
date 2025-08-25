@@ -1,7 +1,7 @@
-import { api } from '../utils'
-import { useRequest } from './request'
-
 import type { Result } from './request'
+import { api } from '../utils'
+
+import { useRequest } from './request'
 
 export interface User {
   id: string
@@ -10,6 +10,6 @@ export interface User {
   avatar: string
 }
 
-export const useCurrentUser = (): Result<User> => {
+export function useCurrentUser(): Result<User> {
   return useRequest(api.get('users/me').json<User>())
 }

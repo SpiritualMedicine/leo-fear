@@ -21,13 +21,14 @@ const prefixUrl = import.meta.env.VITE_API_BASE as string
 
 let task: Promise<string | undefined> | null = null
 
-const createTask = async (): Promise<string | undefined> => {
+async function createTask(): Promise<string | undefined> {
   try {
     // console.log('token refreshing')
     const token = get<Token>('token')
-    if (token?.refresh == null) throw new Error('no refresh_token available')
+    if (token?.refresh == null)
+      throw new Error('no refresh_token available')
     const options = { prefixUrl, method: 'post', json: { grant_type: 'refresh_token', refresh_token: token.refresh } }
-    // eslint-disable-next-line @typescript-eslint/naming-convention
+
     const { token_type, access_token, refresh_token, expires_in } = await ky('auth/token', options).json<TokenResult>()
     set('token', { type: token_type, access: access_token, refresh: refresh_token, expires: Date.now() + expires_in * 1000 })
     return `${token_type} ${access_token}`
@@ -40,36 +41,39 @@ const createTask = async (): Promise<string | undefined> => {
   }
 }
 
-export const refreshAuth = async (): Promise<string | undefined> => {
+export async function refreshAuth(): Promise<string | undefined> {
   // avoid multiple refresh
   return await (task ?? (task = createTask()))
 }
 
-export const getAuth = async (): Promise<string | undefined> => {
+export async function getAuth(): Promise<string | undefined> {
   const token = get<Token>('token')
-  if (token == null) return
-  if (token.expires > Date.now()) return `${token.type} ${token.access}`
+  if (token == null)
+    return
+  if (token.expires > Date.now())
+    return `${token.type} ${token.access}`
   return await refreshAuth()
 }
 
 // authorize
-export const authenticate = async (username: string, password: string): Promise<Token> => {
+export async function authenticate(username: string, password: string): Promise<Token> {
   const options = { prefixUrl, method: 'post', json: { grant_type: 'password', username, password } }
-  // eslint-disable-next-line @typescript-eslint/naming-convention
+
   const { token_type, access_token, refresh_token, expires_in } = await ky('auth/token', options).json<TokenResult>()
   const token = {
     type: token_type,
     access: access_token,
     refresh: refresh_token,
-    expires: Date.now() + expires_in * 1000
+    expires: Date.now() + expires_in * 1000,
   }
   set('token', token)
   return token
 }
 
-export const revoke = async (): Promise<void> => {
+export async function revoke(): Promise<void> {
   const token = get<Token>('token')
-  if (token?.refresh == null) return
+  if (token?.refresh == null)
+    return
   await ky('auth/token', { prefixUrl, method: 'delete', json: { token: token.refresh } })
   remove('token')
 }

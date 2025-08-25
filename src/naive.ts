@@ -37,7 +37,7 @@ import {
   NTabPane,
   NTabs,
   NText,
-  NTooltip
+  NTooltip,
 } from 'naive-ui'
 
 export default create({
@@ -77,6 +77,6 @@ export default create({
     NConfigProvider,
     NDialogProvider,
     NMessageProvider,
-    NLoadingBarProvider
-  ]
+    NLoadingBarProvider,
+  ],
 })

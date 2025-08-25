@@ -1,7 +1,3 @@
-<template>
-  <router-view />
-</template>
-
 <script lang="ts" setup>
 import { useLoadingBar } from 'naive-ui'
 
@@ -13,6 +9,10 @@ router.beforeEach(() => loadingBar?.start())
 
 router.afterEach(() => loadingBar?.finish())
 </script>
+
+<template>
+  <router-view />
+</template>
 
 <!-- <template>
   <suspense @pending="loadingBar?.start" @resolve="loadingBar.finish">

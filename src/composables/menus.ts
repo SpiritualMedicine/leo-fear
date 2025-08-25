@@ -1,7 +1,7 @@
-import { api } from '../utils'
-import { useRequest } from './request'
-
 import type { Result } from './request'
+import { api } from '../utils'
+
+import { useRequest } from './request'
 
 export interface Menu {
   id: string
@@ -12,6 +12,6 @@ export interface Menu {
   children?: Menu[]
 }
 
-export const useMenus = (type: 'main' | 'shortcut' = 'main'): Result<Menu[]> => {
+export function useMenus(type: 'main' | 'shortcut' = 'main'): Result<Menu[]> {
   return useRequest(api.get('menus', { searchParams: { type } }).json<Menu[]>())
 }

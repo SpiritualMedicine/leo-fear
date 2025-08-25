@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/promise-function-async */
-import { type RouteRecordRaw } from 'vue-router'
+import type { RouteRecordRaw } from 'vue-router'
 
 const mainRoutes: RouteRecordRaw[] = [
   {
@@ -8,8 +7,8 @@ const mainRoutes: RouteRecordRaw[] = [
     component: () => import('../views/home.vue'),
     meta: {
       title: 'Home',
-      requiresAuth: true
-    }
+      requiresAuth: true,
+    },
   },
   {
     name: 'update',
@@ -17,8 +16,8 @@ const mainRoutes: RouteRecordRaw[] = [
     component: () => import('../views/update.vue'),
     meta: {
       title: 'Update',
-      requiresAuth: true
-    }
+      requiresAuth: true,
+    },
   },
   {
     name: 'about',
@@ -26,8 +25,8 @@ const mainRoutes: RouteRecordRaw[] = [
     component: () => import('../views/about.vue'),
     meta: {
       title: 'About',
-      requiresAuth: true
-    }
+      requiresAuth: true,
+    },
   },
   {
     name: 'profile',
@@ -35,8 +34,8 @@ const mainRoutes: RouteRecordRaw[] = [
     component: () => import('../views/profile.vue'),
     meta: {
       title: 'Profile',
-      requiresAuth: true
-    }
+      requiresAuth: true,
+    },
   },
   {
     name: 'posts',
@@ -44,8 +43,8 @@ const mainRoutes: RouteRecordRaw[] = [
     component: () => import('../views/posts.vue'),
     meta: {
       title: 'Posts',
-      requiresAuth: true
-    }
+      requiresAuth: true,
+    },
   },
   {
     name: 'new',
@@ -53,8 +52,8 @@ const mainRoutes: RouteRecordRaw[] = [
     component: () => import('../views/new.vue'),
     meta: {
       title: 'New',
-      requiresAuth: true
-    }
+      requiresAuth: true,
+    },
   },
   {
     name: 'edit',
@@ -62,8 +61,8 @@ const mainRoutes: RouteRecordRaw[] = [
     component: () => import('../views/edit.vue'),
     meta: {
       title: 'Edit',
-      requiresAuth: true
-    }
+      requiresAuth: true,
+    },
   },
   {
     name: 'media',
@@ -71,8 +70,8 @@ const mainRoutes: RouteRecordRaw[] = [
     component: () => import('../views/media.vue'),
     meta: {
       title: 'Media',
-      requiresAuth: true
-    }
+      requiresAuth: true,
+    },
   },
   {
     name: 'upload',
@@ -80,8 +79,8 @@ const mainRoutes: RouteRecordRaw[] = [
     component: () => import('../views/upload.vue'),
     meta: {
       title: 'Upload',
-      requiresAuth: true
-    }
+      requiresAuth: true,
+    },
   },
   {
     name: 'terms',
@@ -89,8 +88,8 @@ const mainRoutes: RouteRecordRaw[] = [
     component: () => import('../views/terms.vue'),
     meta: {
       title: 'Terms',
-      requiresAuth: true
-    }
+      requiresAuth: true,
+    },
   },
   {
     name: 'users',
@@ -98,8 +97,8 @@ const mainRoutes: RouteRecordRaw[] = [
     component: () => import('../views/users.vue'),
     meta: {
       title: 'Users',
-      requiresAuth: true
-    }
+      requiresAuth: true,
+    },
   },
   {
     name: 'roles',
@@ -107,8 +106,8 @@ const mainRoutes: RouteRecordRaw[] = [
     component: () => import('../views/roles.vue'),
     meta: {
       title: 'Roles',
-      requiresAuth: true
-    }
+      requiresAuth: true,
+    },
   },
   {
     name: 'permissions',
@@ -116,8 +115,8 @@ const mainRoutes: RouteRecordRaw[] = [
     component: () => import('../views/permissions.vue'),
     meta: {
       title: 'Permissions',
-      requiresAuth: true
-    }
+      requiresAuth: true,
+    },
   },
   {
     name: 'comments',
@@ -125,8 +124,8 @@ const mainRoutes: RouteRecordRaw[] = [
     component: () => import('../views/comments.vue'),
     meta: {
       title: 'Comments',
-      requiresAuth: true
-    }
+      requiresAuth: true,
+    },
   },
   {
     name: 'themes',
@@ -134,8 +133,8 @@ const mainRoutes: RouteRecordRaw[] = [
     component: () => import('../views/themes.vue'),
     meta: {
       title: 'Themes',
-      requiresAuth: true
-    }
+      requiresAuth: true,
+    },
   },
   {
     name: 'customize',
@@ -143,8 +142,8 @@ const mainRoutes: RouteRecordRaw[] = [
     component: () => import('../views/customize.vue'),
     meta: {
       title: 'Customize',
-      requiresAuth: true
-    }
+      requiresAuth: true,
+    },
   },
   {
     name: 'widgets',
@@ -152,8 +151,8 @@ const mainRoutes: RouteRecordRaw[] = [
     component: () => import('../views/widgets.vue'),
     meta: {
       title: 'Widgets',
-      requiresAuth: true
-    }
+      requiresAuth: true,
+    },
   },
   {
     name: 'navigation',
@@ -161,8 +160,8 @@ const mainRoutes: RouteRecordRaw[] = [
     component: () => import('../views/navigation.vue'),
     meta: {
       title: 'Navigation',
-      requiresAuth: true
-    }
+      requiresAuth: true,
+    },
   },
   {
     name: 'plugins',
@@ -170,8 +169,8 @@ const mainRoutes: RouteRecordRaw[] = [
     component: () => import('../views/plugins.vue'),
     meta: {
       title: 'Plugins',
-      requiresAuth: true
-    }
+      requiresAuth: true,
+    },
   },
   {
     name: 'install',
@@ -179,8 +178,8 @@ const mainRoutes: RouteRecordRaw[] = [
     component: () => import('../views/install.vue'),
     meta: {
       title: 'Install',
-      requiresAuth: true
-    }
+      requiresAuth: true,
+    },
   },
   {
     name: 'tools',
@@ -188,8 +187,8 @@ const mainRoutes: RouteRecordRaw[] = [
     component: () => import('../views/tools.vue'),
     meta: {
       title: 'Tools',
-      requiresAuth: true
-    }
+      requiresAuth: true,
+    },
   },
   {
     name: 'import',
@@ -197,8 +196,8 @@ const mainRoutes: RouteRecordRaw[] = [
     component: () => import('../views/import.vue'),
     meta: {
       title: 'Import',
-      requiresAuth: true
-    }
+      requiresAuth: true,
+    },
   },
   {
     name: 'export',
@@ -206,8 +205,8 @@ const mainRoutes: RouteRecordRaw[] = [
     component: () => import('../views/export.vue'),
     meta: {
       title: 'Export',
-      requiresAuth: true
-    }
+      requiresAuth: true,
+    },
   },
   {
     name: 'options',
@@ -215,9 +214,9 @@ const mainRoutes: RouteRecordRaw[] = [
     component: () => import('../views/options.vue'),
     meta: {
       title: 'Options',
-      requiresAuth: true
-    }
-  }
+      requiresAuth: true,
+    },
+  },
 ]
 
 const labsRoutes: RouteRecordRaw[] = [
@@ -226,9 +225,9 @@ const labsRoutes: RouteRecordRaw[] = [
     path: '/labs',
     component: () => import('../views/labs.vue'),
     meta: {
-      title: 'Labs'
-    }
-  }
+      title: 'Labs',
+    },
+  },
 ]
 
 const routes: RouteRecordRaw[] = [
@@ -237,14 +236,14 @@ const routes: RouteRecordRaw[] = [
     path: '/login',
     component: () => import('../views/login.vue'),
     meta: {
-      title: 'Sign In'
-    }
+      title: 'Sign In',
+    },
   },
   {
     name: 'layout',
     path: '/',
     component: () => import('../layouts/index.vue'),
-    children: [...mainRoutes, ...labsRoutes]
+    children: [...mainRoutes, ...labsRoutes],
   },
   // ## not found page
   {
@@ -252,9 +251,9 @@ const routes: RouteRecordRaw[] = [
     path: '/:path*',
     component: () => import('../views/error.vue'),
     meta: {
-      title: 'Oh no!'
-    }
-  }
+      title: 'Oh no!',
+    },
+  },
 ]
 
 export default routes

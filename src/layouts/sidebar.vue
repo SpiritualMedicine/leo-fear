@@ -1,6 +1,60 @@
+<script lang="ts" setup>
+import type { MenuOption } from 'naive-ui'
+import type { Menu } from '../composables'
+import { computed, h, ref, watchEffect } from 'vue'
+
+import { RouterLink, useRoute } from 'vue-router'
+
+import { useSidebarStore } from '@/stores/sidebar'
+import { Icon } from '../components'
+
+import { useMenus } from '../composables'
+
+const store = useSidebarStore()
+
+// TODO: loading state
+const { data: menus } = useMenus()
+
+function mapping(items: Menu[]): MenuOption[] {
+  return items.map(item => ({
+    ...item,
+    key: item.id,
+    label: item.name != null ? () => h(RouterLink, { to: item }, { default: () => item.label }) : item.label,
+    icon: item.icon != null ? () => h(Icon, { type: item.icon }) : undefined,
+    children: item.children && mapping(item.children),
+  }))
+}
+
+const options = computed(() => (menus.value ? mapping(menus.value) : []))
+
+const route = useRoute()
+const currentKey = ref<string>('')
+const expandedKeys = ref<string[]>([])
+
+function routeMatched(menu: Menu): boolean {
+  return route.name === menu.name && (menu.params == null || JSON.stringify(route.params) === JSON.stringify(menu.params))
+}
+
+function matchExpanded(items: Menu[]): boolean {
+  let matched = false
+  for (const item of items) {
+    if (item.children != null) {
+      matchExpanded(item.children) && expandedKeys.value.push(item.id)
+    }
+    if (routeMatched(item)) {
+      currentKey.value = item.id
+      matched = true
+    }
+  }
+  return matched
+}
+
+watchEffect(() => menus.value && matchExpanded(menus.value))
+</script>
+
 <template>
   <n-layout-sider :width="220" :native-scrollbar="false" :collapsed="store.collapsed" collapse-mode="width" show-trigger="bar" bordered @update:collapsed="store.toggle">
-    <router-link to="/" #="{ navigate, href }" custom>
+    <RouterLink to="/" #="{ navigate, href }" custom>
       <!-- prettier-ignore -->
       <n-a class="logo" :href="href" @click="navigate">
         <svg v-if="store.collapsed" class="small" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 120 110">
@@ -17,7 +71,7 @@
           <path d="M5,97.5L5,12.5C5,8.35786,8.35786,5,12.5,5L107.5,5C111.642,5,115,8.35786,115,12.5C115,16.6421,111.642,20,107.5,20L20,20L20,97.5C20,101.6421,16.6421,105,12.5,105C8.35786,105,5,101.6421,5,97.5ZM87.5,62.5L47.5,62.5C43.3579,62.5,40,59.1421,40,55C40,50.8579,43.3579,47.5,47.5,47.5L87.5,47.5C91.6421,47.5,95,50.8579,95,55C95,59.1421,91.6421,62.5,87.5,62.5Z" />
         </svg>
       </n-a>
-    </router-link>
+    </RouterLink>
     <n-menu
       :value="currentKey"
       :default-expanded-keys="expandedKeys"
@@ -31,59 +85,6 @@
     />
   </n-layout-sider>
 </template>
-
-<script lang="ts" setup>
-import { type MenuOption } from 'naive-ui'
-import { computed, h, ref, watchEffect } from 'vue'
-import { RouterLink, useRoute } from 'vue-router'
-
-import { useSidebarStore } from '@/stores/sidebar'
-
-import { Icon } from '../components'
-import { useMenus } from '../composables'
-
-import type { Menu } from '../composables'
-
-const store = useSidebarStore()
-
-// TODO: loading state
-const { data: menus } = useMenus()
-
-const mapping = (items: Menu[]): MenuOption[] =>
-  items.map(item => ({
-    ...item,
-    key: item.id,
-    label: item.name != null ? () => h(RouterLink, { to: item }, { default: () => item.label }) : item.label,
-    icon: item.icon != null ? () => h(Icon, { type: item.icon }) : undefined,
-    children: item.children && mapping(item.children)
-  }))
-
-const options = computed(() => (menus.value ? mapping(menus.value) : []))
-
-const route = useRoute()
-const currentKey = ref<string>('')
-const expandedKeys = ref<string[]>([])
-
-const routeMatched = (menu: Menu): boolean => {
-  return route.name === menu.name && (menu.params == null || JSON.stringify(route.params) === JSON.stringify(menu.params))
-}
-
-const matchExpanded = (items: Menu[]): boolean => {
-  let matched = false
-  for (const item of items) {
-    if (item.children != null) {
-      matchExpanded(item.children) && expandedKeys.value.push(item.id)
-    }
-    if (routeMatched(item)) {
-      currentKey.value = item.id
-      matched = true
-    }
-  }
-  return matched
-}
-
-watchEffect(() => menus.value && matchExpanded(menus.value))
-</script>
 
 <style scoped>
 .logo {
