@@ -10,17 +10,19 @@ router.beforeEach(() => loadingBar?.start())
 router.afterEach(() => loadingBar?.finish())
 </script>
 
-<template>
-  <router-view />
-</template>
-
 <!-- <template>
+  <router-view />
+</template> -->
+
+<template>
   <suspense @pending="loadingBar?.start" @resolve="loadingBar.finish">
     <template #default>
       <router-view v-slot="{ Component, route }">
         <transition :name="route.meta.transition || 'fade'" mode="out-in">
           <keep-alive>
-            <component :is="Component" :key="route.meta.usePathKey ? route.path : undefined" />
+            <div>
+              <component :is="Component" :key="route.meta.usePathKey ? route.path : undefined" />
+            </div>
           </keep-alive>
         </transition>
       </router-view>
@@ -29,7 +31,7 @@ router.afterEach(() => loadingBar?.finish())
   </suspense>
 </template>
 
-<script lang="ts" setup>
+<!-- <script lang="ts" setup>
 import { useLoadingBar } from 'naive-ui'
 const loadingBar = useLoadingBar()
-</script> -->
+</script>  -->
