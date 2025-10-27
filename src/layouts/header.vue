@@ -1,39 +1,44 @@
 <script lang="ts" setup>
-import { useMessage } from 'naive-ui'
-import { computed, h } from 'vue'
-import { RouterLink, useRouter } from 'vue-router'
+  import { useMessage } from "naive-ui";
+  import { computed, h } from "vue";
+  import { RouterLink, useRouter } from "vue-router";
 
-import { Icon } from '../components'
-import { useCurrentUser } from '../composables'
-import { token } from '../utils'
+  import { useCurrentUser } from "../composables";
+  import { token } from "../utils";
 
-const router = useRouter()
-const message = useMessage()
-const { data: me } = useCurrentUser()
+  const router = useRouter();
+  const message = useMessage();
+  const { data: me } = useCurrentUser();
 
-const options = computed(() => [
-  { key: 'me', label: `Hey, ${me.value?.name as string}!` },
-  { key: 'divider', type: 'divider' },
-  { key: 'profile', label: () => h(RouterLink, { to: '/profile' }, 'Your Profiles') },
-  { key: 'settings', label: () => h(RouterLink, { to: '/profile/settings' }, 'Settings') },
-  { key: 'divider', type: 'divider' },
-  { key: 'logout', label: 'Sign out' },
-])
+  const _options = computed(() => [
+    { key: "me", label: `Hey, ${me.value?.name as string}!` },
+    { key: "divider", type: "divider" },
+    {
+      key: "profile",
+      label: () => h(RouterLink, { to: "/profile" }, "Your Profiles"),
+    },
+    {
+      key: "settings",
+      label: () => h(RouterLink, { to: "/profile/settings" }, "Settings"),
+    },
+    { key: "divider", type: "divider" },
+    { key: "logout", label: "Sign out" },
+  ]);
 
-async function handleOptionsSelect(key: unknown): Promise<void> {
-  if ((key as string) === 'logout') {
-    await token.revoke()
-    await router.push({ name: 'login' })
-  } else if ((key as string) === 'me') {
-    message.success(`Welcome back, ${me.value?.name as string}!`)
+  async function _handleOptionsSelect(key: unknown): Promise<void> {
+    if ((key as string) === "logout") {
+      await token.revoke();
+      await router.push({ name: "login" });
+    } else if ((key as string) === "me") {
+      message.success(`Welcome back, ${me.value?.name as string}!`);
+    }
   }
-}
 </script>
 
 <template>
   <n-layout-header bordered>
     <n-button text @click="router.go(0)">
-      <Icon type="refresh" size="20" :depth="2" />
+      <Icon type="refresh" size="20" :depth="2"/>
     </n-button>
     <n-breadcrumb>
       <n-breadcrumb-item>Dashboard</n-breadcrumb-item>
@@ -43,7 +48,7 @@ async function handleOptionsSelect(key: unknown): Promise<void> {
       <n-tooltip>
         <template #trigger>
           <RouterLink :to="{ name: 'about' }">
-            <Icon type="help" size="22" :depth="2" />
+            <Icon type="help" size="22" :depth="2"/>
           </RouterLink>
         </template>
         Dashboard help
@@ -51,7 +56,7 @@ async function handleOptionsSelect(key: unknown): Promise<void> {
       <n-tooltip>
         <template #trigger>
           <n-a href="https://github.com/zce/fearless" target="_blank">
-            <Icon type="github" size="22" :depth="2" />
+            <Icon type="github" size="22" :depth="2"/>
           </n-a>
         </template>
         View on GitHub
@@ -59,10 +64,14 @@ async function handleOptionsSelect(key: unknown): Promise<void> {
       <n-popover trigger="click" placement="bottom-end" :width="300">
         <template #trigger>
           <n-badge dot processing>
-            <Icon type="notifications" size="22" :depth="2" />
+            <Icon type="notifications" size="22" :depth="2"/>
           </n-badge>
         </template>
-        <n-tabs type="line" justify-content="space-evenly" style="--pane-padding: 0">
+        <n-tabs
+          type="line"
+          justify-content="space-evenly"
+          style="--pane-padding: 0"
+        >
           <n-tab-pane name="notifications" tab="Notifications (5)">
             <n-list style="margin: 0">
               <n-list-item v-for="i in 5" :key="i">
@@ -72,35 +81,38 @@ async function handleOptionsSelect(key: unknown): Promise<void> {
           </n-tab-pane>
           <n-tab-pane name="messages" tab="Messages (6)">
             <n-list style="margin: 0">
-              <n-list-item v-for="i in 6" :key="i">
-                Message {{ i }}
-              </n-list-item>
+              <n-list-item v-for="i in 6" :key="i">Message {{ i }}</n-list-item>
             </n-list>
           </n-tab-pane>
         </n-tabs>
       </n-popover>
-      <n-dropdown placement="bottom-end" show-arrow :options="options" @select="handleOptionsSelect">
-        <n-avatar size="small" round :src="me?.avatar" />
+      <n-dropdown
+        placement="bottom-end"
+        show-arrow
+        :options="options"
+        @select="handleOptionsSelect"
+      >
+        <n-avatar size="small" round :src="me?.avatar"/>
       </n-dropdown>
     </n-space>
   </n-layout-header>
 </template>
 
 <style scoped>
-.n-layout-header {
-  position: sticky;
-  top: 0;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  padding: 9px 18px;
-}
+  .n-layout-header {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    padding: 9px 18px;
+  }
 
-.n-button {
-  margin-right: 15px;
-}
+  .n-button {
+    margin-right: 15px;
+  }
 
-.n-space {
-  margin-left: auto;
-}
+  .n-space {
+    margin-left: auto;
+  }
 </style>

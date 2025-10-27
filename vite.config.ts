@@ -2,23 +2,21 @@
  * Vite configuaration file
  * https://vitejs.dev/config/
  */
-import { fileURLToPath, URL } from 'node:url'
-import vue from '@vitejs/plugin-vue'
-import vueJsx from '@vitejs/plugin-vue-jsx'
-import { defineConfig } from 'vite'
-
-import mockApp from './mock'
-
-import type { Plugin } from 'vite'
+import { fileURLToPath, URL } from "node:url";
+import vue from "@vitejs/plugin-vue";
+import vueJsx from "@vitejs/plugin-vue-jsx";
+import type { Plugin } from "vite";
+import { defineConfig } from "vite";
+import mockApp from "./mock";
 
 function mock(): Plugin {
   return {
-    name: 'mock',
-    configureServer: async server => {
+    name: "mock",
+    configureServer: async (server) => {
       // mount mock server, `/api` is the base url
-      server.middlewares.use('/api', mockApp)
-    }
-  }
+      server.middlewares.use("/api", mockApp);
+    },
+  };
 }
 
 // // for parse sfc custom blocks
@@ -39,8 +37,8 @@ export default defineConfig({
   plugins: [vue(), vueJsx(), mock()],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
-    }
+      "@": fileURLToPath(new URL("./src", import.meta.url)),
+    },
   },
   build: {
     rolldownOptions: {
@@ -49,15 +47,15 @@ export default defineConfig({
           groups: [
             {
               name(moduleId) {
-                if (moduleId.includes('naive-ui')) {
-                  return 'naive-ui'
+                if (moduleId.includes("naive-ui")) {
+                  return "naive-ui";
                 }
-                return null
-              }
-            }
-          ]
-        }
-      }
-    }
-  }
-})
+                return null;
+              },
+            },
+          ],
+        },
+      },
+    },
+  },
+});

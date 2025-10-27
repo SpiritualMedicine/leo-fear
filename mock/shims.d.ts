@@ -1,10 +1,10 @@
-import type { Role, User } from './data'
+import type { Role, User } from "./data";
 
 declare global {
   namespace Express {
-    export interface Request {
-      user?: User
-      can: (role: Role) => boolean
-    }
+    export type Request = {
+      user?: User;
+      can: (role: Role) => boolean;
+    };
   }
 }

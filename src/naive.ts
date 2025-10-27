@@ -38,7 +38,7 @@ import {
   NTabs,
   NText,
   NTooltip,
-} from 'naive-ui'
+} from "naive-ui";
 
 export default create({
   components: [
@@ -79,4 +79,4 @@ export default create({
     NMessageProvider,
     NLoadingBarProvider,
   ],
-})
+});

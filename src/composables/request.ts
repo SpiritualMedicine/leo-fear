@@ -1,31 +1,34 @@
-import type { Ref, UnwrapRef } from 'vue'
+import type { Ref, UnwrapRef } from "vue";
 
-import { ref } from 'vue'
+import { ref } from "vue";
 
-export interface Result<T> {
-  data: Ref<UnwrapRef<T | null>>
-  error: Ref<Error | null>
-  loading: Ref<boolean>
-}
+export type Result<T> = {
+  data: Ref<UnwrapRef<T | null>>;
+  error: Ref<Error | null>;
+  loading: Ref<boolean>;
+};
 
-export function useRequest<T>(promise: Promise<T>, initialData: T | null = null): Result<T> {
-  const data = ref<T | null>(initialData)
-  const error = ref<Error | null>(null)
-  const loading = ref<boolean>(true)
+export function useRequest<T>(
+  promise: Promise<T>,
+  initialData: T | null = null
+): Result<T> {
+  const data = ref<T | null>(initialData);
+  const error = ref<Error | null>(null);
+  const loading = ref<boolean>(true);
 
   // TODO: maybe request after mounting?
   promise.then(
     (val) => {
-      data.value = val as UnwrapRef<T>
-      loading.value = false
+      data.value = val as UnwrapRef<T>;
+      loading.value = false;
     },
     (err) => {
-      error.value = err
-      loading.value = false
-    },
-  )
+      error.value = err;
+      loading.value = false;
+    }
+  );
 
-  return { data, error, loading }
+  return { data, error, loading };
 }
 
 // References:

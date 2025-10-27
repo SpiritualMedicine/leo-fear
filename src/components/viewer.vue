@@ -1,13 +1,13 @@
 <script lang="ts" setup>
-import { useLoadingBar } from 'naive-ui'
+  import { useLoadingBar } from "naive-ui";
 
-import router from '../router'
+  import router from "../router";
 
-const loadingBar = useLoadingBar()
+  const loadingBar = useLoadingBar();
 
-router.beforeEach(() => loadingBar?.start())
+  router.beforeEach(() => loadingBar?.start());
 
-router.afterEach(() => loadingBar?.finish())
+  router.afterEach(() => loadingBar?.finish());
 </script>
 
 <!-- <template>
@@ -18,16 +18,22 @@ router.afterEach(() => loadingBar?.finish())
   <suspense @pending="loadingBar?.start" @resolve="loadingBar.finish">
     <template #default>
       <router-view v-slot="{ Component, route }">
-        <transition :name="route.meta.transition as string || 'fade'" mode="out-in">
+        <transition
+          :name="route.meta.transition as string || 'fade'"
+          mode="out-in"
+        >
           <keep-alive>
             <div>
-              <component :is="Component" :key="route.meta.usePathKey ? route.path : undefined" />
+              <component
+                :is="Component"
+                :key="route.meta.usePathKey ? route.path : undefined"
+              />
             </div>
           </keep-alive>
         </transition>
       </router-view>
     </template>
-    <template #fallback> Loading... </template>
+    <template #fallback>Loading... </template>
   </suspense>
 </template>
 

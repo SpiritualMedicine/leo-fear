@@ -3,8 +3,8 @@
  * for vercel serverless functions
  */
 
-import express from 'express'
+import express from "express";
 
-import mock from '../mock'
+import mock from "../mock";
 
-export default express().use('/api', mock)
+export default express().use("/api", mock);
